@@ -36,7 +36,7 @@ def receive_data(request):
 def get_sensor_data(request):
     try:
         # 获取所有数据并按照时间戳降序排列（最近的数据在前）
-        data = SensorData.objects.all().order_by("-timestamp")
+        data = SensorData.objects.all().order_by("-timestamp")[:40]
 
         # 构造返回的JSON数据
         response_data = []
