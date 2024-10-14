@@ -146,7 +146,7 @@ export default {
   methods: {
     async fetchSensorData() {
       try {
-        const response = await fetch("http://127.0.0.1:8000/iot/get-data/");
+        const response = await fetch("http://3.90.228.112/iot/get-data/");
         const json = await response.json();
 
         if (json.status === "success") {
