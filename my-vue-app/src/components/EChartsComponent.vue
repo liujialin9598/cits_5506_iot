@@ -19,7 +19,7 @@ export default {
         timestamps: [],
         ph: [],
         tds: [],
-        temperature: [], // 添加温度数据
+        tmp: [], // 添加温度数据
       },
     };
   },
@@ -38,7 +38,7 @@ export default {
             this.sensorData.timestamps.push(entry.timestamp);
             this.sensorData.ph.push(entry.ph);
             this.sensorData.tds.push(entry.tds);
-            this.sensorData.temperature.push(entry.temperature); // 获取温度数据
+            this.sensorData.tmp.push(entry.tmp); // 获取温度数据
           });
           
           this.initPHChart();
@@ -117,7 +117,7 @@ export default {
           {
             name: 'Temperature',
             type: 'line',
-            data: this.sensorData.temperature, // 使用温度数据
+            data: this.sensorData.tmp, // 使用温度数据
           },
         ],
       };
