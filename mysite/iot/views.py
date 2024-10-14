@@ -17,7 +17,9 @@ def receive_data(request):
     if request.method == "POST":
         try:
             data = json.loads(request.body)
+            print(request.body)
             ph = data.get("ph")
+
             tds = data.get("tds")
             temp = data.get("tmp")
 
