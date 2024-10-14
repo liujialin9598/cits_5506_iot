@@ -146,7 +146,7 @@ export default {
   methods: {
     async fetchSensorData() {
       try {
-        const response = await fetch("http://3.90.228.112/iot/get-data/");
+        const response = await fetch("http://3.90.228.112:8000/iot/get-data/");
         const json = await response.json();
 
         if (json.status === "success") {
@@ -277,7 +277,7 @@ export default {
     },
     async refreshWater() {
       try {
-        const response = await fetch("http://3.90.228.112/iot/fresh/", {
+        const response = await fetch("http://3.90.228.112:8000/iot/fresh/", {
           method: "POST", // 使用 POST 请求
           headers: {
             "Content-Type": "application/json", // 设置请求头
@@ -293,7 +293,7 @@ export default {
     },
     async refreshWater_stop() {
       try {
-        const response = await fetch("http://3.90.228.112/iot/fresh_stop/", {
+        const response = await fetch("http://3.90.228.112:8000/iot/fresh_stop/", {
           method: "POST", // 使用 POST 请求
           headers: {
             "Content-Type": "application/json", // 设置请求头
