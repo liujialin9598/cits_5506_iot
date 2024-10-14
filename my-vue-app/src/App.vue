@@ -137,18 +137,25 @@ export default {
         tds: [],
         tmp: [],
       },
-      refreshing:true,
+      refreshing: true,
     };
   },
   mounted() {
-    this.fetchSensorData();
+    this.timer = setInterval(() => {
+      this.fetchSensorData();
+    }, 2000);
   },
   methods: {
     async fetchSensorData() {
       try {
         const response = await fetch("http://3.90.228.112:8000/iot/get-data/");
         const json = await response.json();
-
+        this.sensorData = {
+          timestamps: [],
+          ph: [],
+          tds: [],
+          tmp: [],
+        };
         if (json.status === "success") {
           json.data.forEach((entry) => {
             this.sensorData.timestamps.push(entry.timestamp);
@@ -293,13 +300,16 @@ export default {
     },
     async refreshWater_stop() {
       try {
-        const response = await fetch("http://3.90.228.112:8000/iot/fresh_stop/", {
-          method: "POST", // 使用 POST 请求
-          headers: {
-            "Content-Type": "application/json", // 设置请求头
-          },
-          body: JSON.stringify({ signal: "fresh" }), // 发送的信号数据
-        });
+        const response = await fetch(
+          "http://3.90.228.112:8000/iot/fresh_stop/",
+          {
+            method: "POST", // 使用 POST 请求
+            headers: {
+              "Content-Type": "application/json", // 设置请求头
+            },
+            body: JSON.stringify({ signal: "fresh" }), // 发送的信号数据
+          }
+        );
 
         const result = await response.json();
         console.log("Response from server:", result); // 处理响应
@@ -309,22 +319,24 @@ export default {
     },
     open2() {
       this.$message({
-        message: 'Refresh has beed scheduled.',
-        type: 'success',
+        message: "Refresh has beed scheduled.",
+        type: "success",
       });
       this.refreshWater();
     },
     stop() {
       this.$message({
-        message: 'Stopping...',
-        type: 'warning',
+        message: "Stopping...",
+        type: "warning",
       });
       this.refreshWater_stop();
-    }
+    },
+  },
+  beforeDestroy() {
+    // 组件销毁时清除定时器
+    clearInterval(this.timer);
   },
 };
-
-
 </script>
 
 <style scoped>
