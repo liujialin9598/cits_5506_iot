@@ -33,6 +33,15 @@ def receive_data(request):
     return JsonResponse({"status": "error", "message": "Invalid request method"})
 
 
+def get_refresh_data(request):
+    try:
+        refresh = StatusData.objects.first()
+        return JsonResponse({"status": "success", "message":refresh.refreshing}, safe=False)
+    except Exception as e:
+        return JsonResponse({"status": "error", "message": str(e)})
+
+
+
 def get_sensor_data(request):
     try:
         # 获取所有数据并按照时间戳降序排列（最近的数据在前）
